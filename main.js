@@ -1,6 +1,8 @@
 let batterylavel = document.getElementById("current_stauts");
-let BatteryText = document.getElementById("batteryText")
+let BatteryText = document.getElementById("batteryText");
 let TimeLeft = document.getElementById("time");
+let lowBattery = document.getElementById("batterylow");
+let titleName = document.getElementById("title");
 
 window.onload = () => {
     if (!navigator.getBattery) {
@@ -13,18 +15,19 @@ navigator.getBattery().then((battery) => {
         connectCharger();
         disconnentcharger();
     }
-    AllBetteryUpdate();
+    setInterval(AllBetteryUpdate, 1000);
     battery.addEventListener("chargingchange", () => {
         AllBetteryUpdate();
     });
-
-
-
 
     function connectCharger() {
         if(battery.charging){
             batterylavel.classList.add('active');
             TimeLeft.style.display = "none";
+            let full = (battery.level) *100;
+            if(full == 100){
+                lowBattery.innerText = "Battery Fully Charged";
+            }
         }
         else{
             batterylavel.classList.remove('active'); 
@@ -43,9 +46,10 @@ navigator.getBattery().then((battery) => {
         let currentlevel = (battery.level) * 100 ;
         batterylavel.style.height = `${currentlevel}%` ;
         BatteryText.innerText = `${currentlevel}%`;
+        titleName.innerText = `${currentlevel}% Battery Stauts`;
         if(currentlevel < 20){
             batterylavel.style.background = "red";
-            alert(`Your Battery is Low ${currentlevel}% <br> Please Connect To Charger`)
+            lowBattery.innerText = `Your Battery is Low ${currentlevel}% <br> Please Connect To Charger`;
         }
         else if(currentlevel > 20 && currentlevel < 50){
             batterylavel.style.background = "rgb(251, 255, 0";
@@ -58,5 +62,5 @@ navigator.getBattery().then((battery) => {
         }
         
         
-    }
+    };
 });
