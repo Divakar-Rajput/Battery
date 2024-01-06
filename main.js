@@ -45,6 +45,7 @@ navigator.getBattery().then((battery) => {
         BatteryText.innerText = `${currentlevel}%`;
         if(currentlevel < 20){
             batterylavel.style.background = "red";
+            alert(`Your Battery is Low ${currentlevel}% <br> Please Connect To Charger`)
         }
         else if(currentlevel > 20 && currentlevel < 50){
             batterylavel.style.background = "rgb(251, 255, 0";
