@@ -3,16 +3,17 @@ let BatteryText = document.getElementById("batteryText");
 let TimeLeft = document.getElementById("time");
 let lowBattery = document.getElementById("batterylow");
 let titleName = document.getElementById("title");
+let icon = document.querySelector("span");
 
 window.onload = () => {
     if (!navigator.getBattery) {
-        alert("");
+        alert("Your Brower is not support Battery API");
         return false;
     }
 }
 navigator.getBattery().then((battery) => {
     function AllBetteryUpdate() {
-        connectCharger();
+        setInterval(connectCharger,1000);
     }
     AllBetteryUpdate();
     battery.addEventListener("chargingchange", () => {
@@ -29,23 +30,29 @@ navigator.getBattery().then((battery) => {
             if (full > 99) {
                 batterylavel.classList.remove('active');
                 lowBattery.innerText = "Battery Fully Charged";
-                lowBattery.style.color = "green";
+                lowBattery.style.color = "white";
+                icon.style.display = "none";
+                batterylavel.style.background = "rgb(0, 255, 21)";
             }
             let currentlevel = Math.floor((battery.level) * 100);
             batterylavel.style.height = `${currentlevel}%`;
             BatteryText.innerText = `${currentlevel}%`;
             titleName.innerText = `${currentlevel}% Battery Stauts`;
+            TimeLeft.innerHTML = `Charger Connected`;
+            icon.style.display = "block";
 
         }
         else {
             batterylavel.classList.remove('active');
-
+            TimeLeft.innerText = `Scaning Battery...`;
             if (parseInt(battery.dischargingTime)) {
                 let batteryTime = (battery.dischargingTime);
                 let hour = parseInt(batteryTime / 3600);
                 let min = parseInt(batteryTime / 60 - hour * 60);
                 TimeLeft.innerText = `${hour} Hr ${min} Min remaining`;
             }
+            icon.style.display = "none";
+            lowBattery.innerText = " ";
             let currentlevel = Math.floor((battery.level) * 100);
             batterylavel.style.height = `${currentlevel}%`;
             BatteryText.innerText = `${currentlevel}%`;
@@ -62,6 +69,7 @@ navigator.getBattery().then((battery) => {
             }
             else {
                 batterylavel.style.background = "rgb(0, 255, 21)";
+                
             }
         }
     };
