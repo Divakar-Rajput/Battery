@@ -47,6 +47,7 @@ navigator.getBattery().then((battery) => {
         else {
             batterylavel.classList.remove('active');
             TimeLeft.innerText = `Scaning Battery...`;
+             lowBattery.style.display = "none";
             if (parseInt(battery.dischargingTime)) {
                 let batteryTime = (battery.dischargingTime);
                 let hour = parseInt(batteryTime / 3600);
@@ -61,6 +62,7 @@ navigator.getBattery().then((battery) => {
             titleName.innerText = `${currentlevel}% Battery Stauts`;
             if (currentlevel <= 30) {
                 batterylavel.style.background = "red";
+                 lowBattery.style.display = "block";
                 lowBattery.innerText = `Your Battery is Low ${currentlevel}% Please Connect To Charger`;
                 lowBattery.style.color = "red";
             }
