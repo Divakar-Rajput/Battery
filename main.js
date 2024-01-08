@@ -26,11 +26,13 @@ navigator.getBattery().then((battery) => {
     function connectCharger() {
         if (battery.charging) {
             batterylavel.classList.add('active');
+            lowBattery.style.display = "none";
             let full = parseFloat((battery.level) * 100);
             if (full > 99) {
                 batterylavel.classList.remove('active');
+                lowBattery.style.display = "block";
                 lowBattery.innerText = "Battery Fully Charged";
-                lowBattery.style.color = "white";
+                lowBattery.style.color = "#17ea04";
                 icon.style.display = "none";
                 batterylavel.style.background = "rgb(0, 255, 21)";
             }
@@ -57,9 +59,10 @@ navigator.getBattery().then((battery) => {
             batterylavel.style.height = `${currentlevel}%`;
             BatteryText.innerText = `${currentlevel}%`;
             titleName.innerText = `${currentlevel}% Battery Stauts`;
-            if (currentlevel <= 20) {
+            if (currentlevel <= 30) {
                 batterylavel.style.background = "red";
                 lowBattery.innerText = `Your Battery is Low ${currentlevel}% Please Connect To Charger`;
+                lowBattery.style.color = "red";
             }
             else if (currentlevel > 20 && currentlevel <= 50) {
                 batterylavel.style.background = "rgb(251, 255, 0";
