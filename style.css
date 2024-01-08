@@ -179,6 +179,7 @@ body{
 @media (max-width:500px){
     .container{
         width: 80%;
+         background: black;
      }
     .container .batteryTop{
         width: 18%;
@@ -190,6 +191,7 @@ body{
 @media (max-width:350px){
     .container{
         width: 100%;
+        background: red;
      }
     .container .batteryTop{
         width: 22%;
